@@ -1,0 +1,52 @@
+{
+  "build": {
+    "arduino": {
+      "variant_h": "variant_generic.h"
+    },
+    "cpu": "cortex-m0plus",
+    "extra_flags": "-DSTM32L0xx -DSTM32L051xx -DARDUINO_GENERIC_L051C8TX",
+    "f_cpu": "32000000L",
+    "framework_extra_flags": {
+      "arduino": "-D__CORTEX_SC=0"
+    },
+  "mcu": "stm32l051c8t6",
+  "product_line": "STM32L051xx",
+  "variant": "STM32L0xx/L051C(6-8)(T-U)",
+    "ldscript": "ldscript.ld"
+  },
+  "debug": {
+    "default_tools": [
+      "stlink"
+    ],
+    "jlink_device": "STM32L010C6",
+    "onboard_tools": [
+      "stlink"
+    ],
+    "openocd_target": "stm32l0",
+    "svd_path": "STM32L0x1.svd"
+  },
+  "frameworks": [
+    "arduino",
+    "stm32cube"
+  ],
+  "name": "STM32L0 Suntracker",
+  "upload": {
+ "maximum_size": 65536,
+"maximum_ram_size": 8192,
+    "protocol": "stlink",
+    "protocols": [
+      "blackmagic",
+      "cmsis-dap",
+      "dfu",
+      "jlink",
+      "serial",
+      "stlink"
+    ]
+  },
+  "url": "https://www.st.com/en/microcontrollers-microprocessors/stm32l010c6.html",
+  "vendor": "ST"
+}
+
+
+
+
