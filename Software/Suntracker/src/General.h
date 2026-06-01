@@ -8,5 +8,4 @@ void Set_Panel_Power(bool state);
 void System_Start();
 void System_Sleep();
 void System_Fold();
-void System_Init();
 void Harvest_Update();

@@ -29,7 +29,6 @@ void Set_Panel_Power(bool state) {
 
 void System_Start()
 {
-  System_Init();
   Set_Logic_5V_Power(true);
   delay(100);
   Set_Logic_5V_Mode(true);

@@ -60,7 +60,7 @@ if(Initial_State == START) {
         Initial_State = Sleep;
   }
   else if(Initial_State == FOLD) {
-    system_Fold();
+    System_Fold();
     Initial_State = Sleep;
   }
   else if(Initial_State == Sleep) {
