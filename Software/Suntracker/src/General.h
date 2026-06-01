@@ -9,3 +9,4 @@ void System_Start();
 void System_Sleep();
 void System_Fold();
 void System_Init();
+void Harvest_Update();

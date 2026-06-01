@@ -8,6 +8,15 @@
 #include "INA219.h"
 #include "MCP40xx.h"
 
+enum state {
+    START = 0,          //wake up, initialize, and start the system
+    Harvest_update = 1, //find the optimal position and update the panel's position
+    Harvest = 2,        //keep the panel in the optimal position, and update MPPT values 
+    FOLD = 3,           //fold the panel 
+    Sleep = 4           //enter sleep mode
+};
+state Initial_State = START;
+
 extern INA219 ina219;
 extern MCP40xx mcp40xx;
 
@@ -38,4 +47,26 @@ void setup() {
 }
 
 void loop() {
+if(Initial_State == START) {
+    System_Start();
+    Initial_State = Harvest;
+  }
+  else if(Initial_State == Harvest_update) {
+    Harvest_Update();    
+    Initial_State = Harvest;
+  }
+  else if(Initial_State == Harvest) {
+        MPPT_menager();
+        Initial_State = Sleep;
+  }
+  else if(Initial_State == FOLD) {
+    system_Fold();
+    Initial_State = Sleep;
+  }
+  else if(Initial_State == Sleep) {
+    System_Sleep();
+  }
 }
+//if wakeup form timer -> updateharvest
+//if wakeup from button -> fold
+//TODP: replace if to switch case, and adjust state functions

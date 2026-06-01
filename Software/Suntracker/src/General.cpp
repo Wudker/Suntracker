@@ -3,6 +3,8 @@
 #include "Pins.h"
 #include "MPPT.h"
 #include "Motors.h"
+#include "Photorezistors.h"
+
 
 
 void Set_Servo_Power(bool state) {
@@ -41,6 +43,22 @@ void System_Start()
   Set_Servo_angle(120);
   delay(500);
   Set_Panel_Power(true);
+  uint16_t optimal_position = Find_general_optimal_position();
+  Set_Motor1_Direction(true, optimal_position);  //add direction decision
+  delay(100);
+  Find_optimal_position();
+  delay(100);
+  MPPT_Init();
+}
+
+void Harvest_Update()
+{
+  Set_Panel_Power(true);
+  uint16_t optimal_position = Find_general_optimal_position();
+  Set_Motor1_Direction(true, optimal_position); // add direction decision
+  delay(100);
+  Find_optimal_position();
+  delay(100);
   MPPT_Init();
 }
 
@@ -48,7 +66,8 @@ void System_Sleep()
 {
   Set_Motor_Power(false);
   Set_Servo_Power(false);
-  Set_Panel_Power(false);
+  Set_Logic_5V_Power(false);
+  //add sleep
 
 }
 
