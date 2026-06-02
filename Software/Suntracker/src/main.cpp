@@ -1,3 +1,6 @@
+//#TODO : Add timer, fix angle calculation, expand harvest and harvest update states 
+
+
 #include <Arduino.h>
 #include <Wire.h>
 #include "Pins.h"
@@ -19,6 +22,18 @@ state Initial_State = START;
 
 extern INA219 ina219;
 extern MCP40xx mcp40xx;
+
+void interrupt()
+{
+  if (Initial_State == Sleep)
+  {
+    Initial_State = START;
+  }
+  else if (Initial_State != Sleep)
+  {
+    Initial_State = FOLD;
+  }
+}
 
 void setup() {
   pinMode(POT_data, OUTPUT);
@@ -43,8 +58,11 @@ void setup() {
   Wire.setSCL(PIN_I2C_SCL);
   Wire.setSDA(PIN_I2C_SDA);
   Wire.begin();
-
+  attachInterrupt(digitalPinToInterrupt(POWER_ON), interrupt, FALLING);
 }
+
+
+
 
 void loop() {
 switch(Initial_State) {
@@ -66,9 +84,7 @@ switch(Initial_State) {
     break;
   case Sleep:
     System_Sleep();
+    // Code for timer interrupt 
     break;
 }
 }
-
-//if wakeup form timer -> updateharvest
-//if wakeup from button -> fold
