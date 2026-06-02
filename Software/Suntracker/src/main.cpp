@@ -47,26 +47,28 @@ void setup() {
 }
 
 void loop() {
-if(Initial_State == START) {
+switch(Initial_State) {
+  case START:
     System_Start();
     Initial_State = Harvest;
-  }
-  else if(Initial_State == Harvest_update) {
+    break;
+  case Harvest_update:
     Harvest_Update();    
     Initial_State = Harvest;
-  }
-  else if(Initial_State == Harvest) {
-        MPPT_menager();
-        Initial_State = Sleep;
-  }
-  else if(Initial_State == FOLD) {
+    break;
+  case Harvest:
+    MPPT_menager();
+    Initial_State = Sleep;
+    break;
+  case FOLD:
     System_Fold();
     Initial_State = Sleep;
-  }
-  else if(Initial_State == Sleep) {
+    break;
+  case Sleep:
     System_Sleep();
-  }
+    break;
 }
+}
+
 //if wakeup form timer -> updateharvest
 //if wakeup from button -> fold
-//TODP: replace if to switch case, and adjust state functions

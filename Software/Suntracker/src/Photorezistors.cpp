@@ -115,7 +115,7 @@ void Find_optimal_position()
 {
   float bestVoltage = ReadPanelVoltageAverage();
 
-  Set_Motor1_Direction(MOTOR1_DIR_PLUS, FINE_STEP_ANGLE);
+  Set_Motor1_Direction(FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 
   float voltagePlus = ReadPanelVoltageAverage();
@@ -126,7 +126,7 @@ void Find_optimal_position()
 
     for (int i = 1; i < FINE_MAX_STEPS; i++)
     {
-      Set_Motor1_Direction(MOTOR1_DIR_PLUS, FINE_STEP_ANGLE);
+      Set_Motor1_Direction(FINE_STEP_ANGLE);
       delay(FINE_SETTLE_TIME);
 
       float newVoltage = ReadPanelVoltageAverage();
@@ -137,7 +137,7 @@ void Find_optimal_position()
       }
       else
       {
-        Set_Motor1_Direction(MOTOR1_DIR_MINUS, FINE_STEP_ANGLE);
+        Set_Motor1_Direction(FINE_STEP_ANGLE);
         delay(FINE_SETTLE_TIME);
         break;
       }
@@ -146,10 +146,10 @@ void Find_optimal_position()
     return;
   }
 
-  Set_Motor1_Direction(MOTOR1_DIR_MINUS, FINE_STEP_ANGLE);
+  Set_Motor1_Direction(FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 
-  Set_Motor1_Direction(MOTOR1_DIR_MINUS, FINE_STEP_ANGLE);
+  Set_Motor1_Direction(FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 
   float voltageMinus = ReadPanelVoltageAverage();
@@ -160,7 +160,7 @@ void Find_optimal_position()
 
     for (int i = 1; i < FINE_MAX_STEPS; i++)
     {
-      Set_Motor1_Direction(MOTOR1_DIR_MINUS, FINE_STEP_ANGLE);
+      Set_Motor1_Direction(FINE_STEP_ANGLE);
       delay(FINE_SETTLE_TIME);
 
       float newVoltage = ReadPanelVoltageAverage();
@@ -171,7 +171,7 @@ void Find_optimal_position()
       }
       else
       {
-        Set_Motor1_Direction(MOTOR1_DIR_PLUS, FINE_STEP_ANGLE);
+        Set_Motor1_Direction(FINE_STEP_ANGLE);
         delay(FINE_SETTLE_TIME);
         break;
       }
@@ -180,6 +180,6 @@ void Find_optimal_position()
     return;
   }
 
-  Set_Motor1_Direction(MOTOR1_DIR_PLUS, FINE_STEP_ANGLE);
+  Set_Motor1_Direction(FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 }

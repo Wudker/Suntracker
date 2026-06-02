@@ -35,8 +35,12 @@ void Motor1_Stop()
   digitalWrite(Motor1_in2, LOW);
 }
 
-void Set_Motor1_Direction(bool direction, float angle)
+void Set_Motor1_Direction(float angle)
 {
+  bool direction;
+  if (angle > 0) direction = true;
+  else direction = false;
+
   if (angle <= 0)
     return;
 
@@ -65,8 +69,11 @@ void Set_Motor1_Direction(bool direction, float angle)
   Motor1_Stop();
 }
 
-void Set_Motor2_Direction(bool direction, float distance)
+void Set_Motor2_Direction(float distance)
 {
+  bool direction;
+  if (distance > 0) direction = true;
+  else direction = false;
   float linearSpeed = (MOTOR2_speed / 60.0f) * 10.0f; // mm/s
   float Working_time = distance / linearSpeed;
   digitalWrite(Motor2_in1, direction);

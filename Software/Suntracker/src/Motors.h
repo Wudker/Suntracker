@@ -10,5 +10,5 @@
 #define speed_stop 20
 
 void Set_Servo_angle(float angle);
-void Set_Motor1_Direction(bool direction, float distance);
-void Set_Motor2_Direction(bool direction, float distance);
+void Set_Motor1_Direction(float distance);
+void Set_Motor2_Direction(float angle);
