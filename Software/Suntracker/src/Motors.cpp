@@ -37,14 +37,16 @@ void Motor1_Stop()
 
 void Set_Motor1_Direction(float angle)
 {
-  bool direction;
-  if (angle > 0) direction = true;
-  else direction = false;
-
-  if (angle <= 0)
+  if (angle == 0)
+  {
+    Motor1_Stop();
     return;
+  }
 
-  float revolutions = angle / 360.0f;
+  bool direction = angle > 0;
+  float angleAbs = fabs(angle);
+
+  float revolutions = angleAbs / 360.0f;
 
   float avgPWM = (speed_start + speed_const + speed_stop) / 3.0f;
   float pwmFactor = avgPWM / 255.0f;
@@ -68,17 +70,26 @@ void Set_Motor1_Direction(float angle)
 
   Motor1_Stop();
 }
-
 void Set_Motor2_Direction(float distance)
 {
-  bool direction;
-  if (distance > 0) direction = true;
-  else direction = false;
+  if (distance == 0)
+  {
+    digitalWrite(Motor2_in1, LOW);
+    digitalWrite(Motor2_in2, LOW);
+    return;
+  }
+
+  bool direction = distance > 0;
+  float distanceAbs = fabs(distance);
+
   float linearSpeed = (MOTOR2_speed / 60.0f) * 10.0f; // mm/s
-  float Working_time = distance / linearSpeed;
+  float Working_time = distanceAbs / linearSpeed;
+
   digitalWrite(Motor2_in1, direction);
   digitalWrite(Motor2_in2, !direction);
-  delay(Working_time*1000.0f); //working time oblicza dla s, a delay przyjmuje ms
+
+  delay((unsigned long)(Working_time * 1000.0f));
+
   digitalWrite(Motor2_in1, LOW);
   digitalWrite(Motor2_in2, LOW);
 }
