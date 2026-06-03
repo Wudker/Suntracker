@@ -5,8 +5,8 @@
 #include "MPPT.h"
 #include "Motors.h"
 #include "Photorezistors.h"
-
-
+#include "STM32LowPower.h"
+#include "STM32RTC.h"
 
 void Set_Servo_Power(bool state) {
   digitalWrite(Servo_power_enable, state ? HIGH : LOW);
@@ -72,11 +72,21 @@ void Harvest_Update()
 
 void System_Sleep()
 {
+  Set_Panel_Power(true);
+
   Set_Motor_Power(false);
   Set_Servo_Power(false);
   Set_Logic_5V_Power(false);
-  //add sleep
 
+  digitalWrite(Motor1_in1, LOW);
+  digitalWrite(Motor1_in2, LOW);
+  digitalWrite(Motor2_in1, LOW);
+  digitalWrite(Motor2_in2, LOW);
+
+  delay(50);
+
+  LowPower.deepSleep(60000);
+  Harvest_Update_interrupt();
 }
 
 void System_Fold()

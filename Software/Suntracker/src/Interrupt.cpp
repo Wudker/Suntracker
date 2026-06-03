@@ -36,11 +36,7 @@ void Harvest_Update_interrupt()
     }
 }
 
-void Interrupts_Init()
+void Interrupt_Init()
 {
     attachInterrupt(digitalPinToInterrupt(POWER_ON), PowerButton_ISR, FALLING);
-    timer1.setOverflow(Harvest_time, MICROSEC_FORMAT);
-    timer1.attachInterrupt(Harvest_Update_interrupt);
-    timer1.refresh();
-    timer1.resume();
 }
