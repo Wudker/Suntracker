@@ -42,7 +42,7 @@ void System_Start()
   Set_Servo_angle(120);
   delay(500);
   Set_Panel_Power(true);
-  uint16_t optimal_position = Find_general_optimal_position();
+  int16_t optimal_position = Find_general_optimal_position();
   Set_Motor1_Direction(optimal_position);
   delay(100);
   Find_optimal_position();
@@ -53,8 +53,8 @@ void System_Start()
 void Harvest_Update()
 {
   Set_Panel_Power(true);
-  uint16_t optimal_position = Find_general_optimal_position();
-  Set_Motor1_Direction(optimal_position); // add direction decision
+  int16_t optimal_position = Find_general_optimal_position();
+  Set_Motor1_Direction(optimal_position);
   delay(100);
   Find_optimal_position();
   delay(100);

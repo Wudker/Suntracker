@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <Servo.h>
 #include "Pins.h"
+#include <math.h>
 
 Servo servo;
 

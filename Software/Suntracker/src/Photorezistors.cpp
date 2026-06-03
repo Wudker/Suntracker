@@ -115,11 +115,13 @@ void Find_optimal_position()
 {
   float bestVoltage = ReadPanelVoltageAverage();
 
+  // 1. Testujemy krok w stronę dodatnią
   Set_Motor1_Direction(FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 
   float voltagePlus = ReadPanelVoltageAverage();
 
+  // 2. Jeśli napięcie się poprawiło, idziemy dalej w plus
   if (IsVoltageBetter(voltagePlus, bestVoltage))
   {
     bestVoltage = voltagePlus;
@@ -137,7 +139,8 @@ void Find_optimal_position()
       }
       else
       {
-        Set_Motor1_Direction(FINE_STEP_ANGLE);
+        // Ostatni krok pogorszył wynik, więc cofamy się o jeden krok
+        Set_Motor1_Direction(-FINE_STEP_ANGLE);
         delay(FINE_SETTLE_TIME);
         break;
       }
@@ -146,21 +149,24 @@ void Find_optimal_position()
     return;
   }
 
-  Set_Motor1_Direction(FINE_STEP_ANGLE);
+  // 3. Skoro plus nie pomógł, wracamy do pozycji startowej
+  Set_Motor1_Direction(-FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 
-  Set_Motor1_Direction(FINE_STEP_ANGLE);
+  // 4. Testujemy krok w stronę ujemną
+  Set_Motor1_Direction(-FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 
   float voltageMinus = ReadPanelVoltageAverage();
 
+  // 5. Jeśli napięcie się poprawiło, idziemy dalej w minus
   if (IsVoltageBetter(voltageMinus, bestVoltage))
   {
     bestVoltage = voltageMinus;
 
     for (int i = 1; i < FINE_MAX_STEPS; i++)
     {
-      Set_Motor1_Direction(FINE_STEP_ANGLE);
+      Set_Motor1_Direction(-FINE_STEP_ANGLE);
       delay(FINE_SETTLE_TIME);
 
       float newVoltage = ReadPanelVoltageAverage();
@@ -171,6 +177,7 @@ void Find_optimal_position()
       }
       else
       {
+        // Ostatni krok pogorszył wynik, więc cofamy się o jeden krok
         Set_Motor1_Direction(FINE_STEP_ANGLE);
         delay(FINE_SETTLE_TIME);
         break;
@@ -180,6 +187,8 @@ void Find_optimal_position()
     return;
   }
 
+  // 6. Skoro ani plus, ani minus nie poprawił wyniku,
+  // wracamy do pozycji startowej
   Set_Motor1_Direction(FINE_STEP_ANGLE);
   delay(FINE_SETTLE_TIME);
 }
