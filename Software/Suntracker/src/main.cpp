@@ -16,7 +16,11 @@ extern INA219 ina219;
 extern MCP40xx mcp40xx;
 extern HardwareTimer timer1;
 
-void setup() {
+void setup()
+{
+  Pinout_init();
+  Wire_Init();
+
   rtc.setClockSource(STM32RTC::LSI_CLOCK);
   LowPower.begin();
 
@@ -25,16 +29,21 @@ void setup() {
       PowerButton_ISR,
       FALLING,
       DEEP_SLEEP_MODE);
-  Pinout_init();
-  Wire_Init();
-  Interrupt_Init();
 }
 
 void loop()
 {
+  if (Button_wakeup_flag)
+  {
+    noInterrupts();
+    Button_wakeup_flag = false;
+    interrupts();
+
+    Handle_Power_Button();
+  }
+
   switch (Initial_State)
   {
-
   case START:
     System_Start();
     if (Initial_State == START)
