@@ -1,6 +1,7 @@
 #include "Interrupt.h"
 #include "arduino.h"
 #include "Pins.h"
+#include "interrupt.h"
 
 volatile uint16_t Timer_counter = 0;
 volatile state Initial_State = Sleep;
@@ -8,17 +9,7 @@ volatile Power_state Power = OFF;
 HardwareTimer timer1(TIM2);
 void PowerButton_ISR()
 {
-    if (Power == OFF)
-    {
-        Power = ON;
-        Initial_State = START;
-        Timer_counter = 0;
-    }
-    else
-    {
-        Power = OFF;
-        Initial_State = FOLD;
-    }
+    Button_wakeup_flag = true;
 }
 
 void Harvest_Update_interrupt()
@@ -39,4 +30,23 @@ void Harvest_Update_interrupt()
 void Interrupt_Init()
 {
     attachInterrupt(digitalPinToInterrupt(POWER_ON), PowerButton_ISR, FALLING);
+}
+
+volatile bool Button_wakeup_flag = false;
+
+
+
+void Handle_Power_Button()
+{
+    if (Power == OFF)
+    {
+        Power = ON;
+        Initial_State = START;
+        Timer_counter = 0;
+    }
+    else
+    {
+        Power = OFF;
+        Initial_State = FOLD;
+    }
 }

@@ -14,6 +14,7 @@
 STM32RTC &rtc = STM32RTC::getInstance();
 extern INA219 ina219;
 extern MCP40xx mcp40xx;
+extern HardwareTimer timer1;
 
 void setup() {
   rtc.setClockSource(STM32RTC::LSI_CLOCK);

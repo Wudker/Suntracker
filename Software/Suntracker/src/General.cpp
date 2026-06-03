@@ -4,6 +4,7 @@
 #include "Pins.h"
 #include "MPPT.h"
 #include "Motors.h"
+#include "interrupt.h"
 #include "Photorezistors.h"
 #include "STM32LowPower.h"
 #include "STM32RTC.h"
@@ -85,8 +86,18 @@ void System_Sleep()
 
   delay(50);
 
+  Button_wakeup_flag = false;
+
   LowPower.deepSleep(60000);
-  Harvest_Update_interrupt();
+
+  if (Button_wakeup_flag)
+  {
+    Handle_Power_Button();
+  }
+  else
+  {
+    Harvest_Update_interrupt();
+  }
 }
 
 void System_Fold()
@@ -136,3 +147,12 @@ void Wire_Init()
   Wire.setSDA(PIN_I2C_SDA);
   Wire.begin();
 }
+
+/*void Interrupt_Init()
+{
+  attachInterrupt(digitalPinToInterrupt(POWER_ON), PowerButton_ISR, FALLING);
+  timer1.setOverflow(Harvest_time, MICROSEC_FORMAT);
+  timer1.attachInterrupt(Harvest_Update_interrupt);
+  timer1.refresh();
+  timer1.resume();
+}*/
