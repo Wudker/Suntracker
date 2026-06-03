@@ -92,6 +92,10 @@ void System_Sleep()
 
   if (Button_wakeup_flag)
   {
+    noInterrupts();
+    Button_wakeup_flag = false;
+    interrupts();
+
     Handle_Power_Button();
   }
   else
