@@ -4,8 +4,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    extern volatile bool Button_wakeup_flag;
     const uint32_t Harvest_time = 60000000UL; // 1 min
+    extern volatile uint16_t Timer_counter;
+
 
     typedef enum
     {
@@ -22,14 +23,18 @@ extern "C" {
         ON = 1
     } Power_state;
 
-    extern volatile uint16_t Timer_counter;
-    extern volatile state Initial_State;
-    extern volatile Power_state Power;
 
-    void Interrupt_Init();
+
     void PowerButton_ISR();
     void Harvest_Update_interrupt();
     void Handle_Power_Button();
+
+    extern volatile state Initial_State;
+    extern volatile Power_state Power;
+
+    extern volatile bool powerButtonFlag;
+    extern volatile bool wakeTickFlag;
+    extern volatile bool Button_wakeup_flag;
 
 #ifdef __cplusplus
 }

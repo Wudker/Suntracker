@@ -5,6 +5,7 @@
 #include <Pins.h>
 
 extern INA219 ina219;
+volatile bool Critical_Sunlight =  false ;
 
 static int readPhotorezistorAverage(uint16_t pin)
 {
@@ -74,7 +75,12 @@ int16_t Find_general_optimal_position()
 
   if (maxValue < MIN_LIGHT_LEVEL)
   {
+    Critical_Sunlight = true;
     return 0;
+  }
+  else
+  {
+    Critical_Sunlight = false;
   }
 
   if ((maxValue - minValue) < VECTOR_DEADZONE)

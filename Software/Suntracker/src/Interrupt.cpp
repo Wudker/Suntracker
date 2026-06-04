@@ -6,34 +6,19 @@
 volatile uint16_t Timer_counter = 0;
 volatile state Initial_State = Sleep;
 volatile Power_state Power = OFF;
+volatile bool powerButtonFlag = false;
+volatile bool wakeTickFlag = false;
+volatile bool Button_wakeup_flag = false;
 HardwareTimer timer1(TIM2);
 void PowerButton_ISR()
 {
-    Button_wakeup_flag = true;
+    powerButtonFlag = true;
 }
 
 void Harvest_Update_interrupt()
 {
-
-    if (Initial_State == Sleep && Power == ON)
-    {
-        Initial_State = Harvest;
-        Timer_counter++;
-        if (Timer_counter >= 15)
-        {
-            Initial_State = Harvest_update;
-            Timer_counter = 0;
-        }
-    }
+    wakeTickFlag = true;
 }
-
-void Interrupt_Init()
-{
-    attachInterrupt(digitalPinToInterrupt(POWER_ON), PowerButton_ISR, FALLING);
-}
-
-volatile bool Button_wakeup_flag = false;
-
 
 
 void Handle_Power_Button()

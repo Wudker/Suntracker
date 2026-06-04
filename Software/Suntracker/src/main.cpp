@@ -33,13 +33,50 @@ void setup()
 
 void loop()
 {
-  if (Button_wakeup_flag)
+  if (powerButtonFlag)
   {
     noInterrupts();
-    Button_wakeup_flag = false;
+    powerButtonFlag = false;
     interrupts();
 
-    Handle_Power_Button();
+    if (Power == OFF)
+    {
+      Power = ON;
+      Initial_State = START;
+      Timer_counter = 0;
+    }
+    else
+    {
+      Power = OFF;
+      Initial_State = FOLD;
+    }
+  }
+
+  if (wakeTickFlag)
+  {
+    noInterrupts();
+    wakeTickFlag = false;
+    interrupts();
+
+    if (Initial_State == Sleep && Power == ON)
+    {
+      Timer_counter++;
+
+      if (Timer_counter >= 15)
+      {
+        Initial_State = Harvest_update;
+        Timer_counter = 0;
+      }
+      else
+      {
+        Initial_State = Harvest;
+      }
+    }
+  }
+
+  if (Critical_Sunlight && Power == ON)
+  {
+    Initial_State = FOLD;
   }
 
   switch (Initial_State)
@@ -47,33 +84,25 @@ void loop()
   case START:
     System_Start();
     if (Initial_State == START)
-    {
       Initial_State = Harvest;
-    }
     break;
 
   case Harvest_update:
     Harvest_Update();
     if (Initial_State == Harvest_update)
-    {
       Initial_State = Harvest;
-    }
     break;
 
   case Harvest:
     MPPT_menager();
     if (Initial_State == Harvest)
-    {
       Initial_State = Sleep;
-    }
     break;
 
   case FOLD:
     System_Fold();
     if (Initial_State == FOLD)
-    {
       Initial_State = Sleep;
-    }
     break;
 
   case Sleep:

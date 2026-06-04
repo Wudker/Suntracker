@@ -13,5 +13,7 @@
 #define VECTOR_DEADZONE 40
 #define MIN_LIGHT_LEVEL 100
 
+extern volatile bool Critical_Sunlight;
+
 int16_t Find_general_optimal_position();
 void Find_optimal_position();
