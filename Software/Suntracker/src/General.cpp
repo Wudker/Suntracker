@@ -86,14 +86,14 @@ void System_Sleep()
 
   delay(50);
 
-  Button_wakeup_flag = false;
+  powerButtonFlag = false;
 
   LowPower.deepSleep(60000);
 
-  if (Button_wakeup_flag)
+  if (powerButtonFlag)
   {
     noInterrupts();
-    Button_wakeup_flag = false;
+    powerButtonFlag = false;
     interrupts();
 
     Handle_Power_Button();

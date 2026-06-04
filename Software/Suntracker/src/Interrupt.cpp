@@ -8,7 +8,6 @@ volatile state Initial_State = Sleep;
 volatile Power_state Power = OFF;
 volatile bool powerButtonFlag = false;
 volatile bool wakeTickFlag = false;
-volatile bool Button_wakeup_flag = false;
 HardwareTimer timer1(TIM2);
 void PowerButton_ISR()
 {
