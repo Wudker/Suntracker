@@ -75,7 +75,6 @@ int16_t Find_general_optimal_position()
 
   if (maxValue < MIN_LIGHT_LEVEL)
   {
-    Critical_Sunlight = true;
     return 0;
   }
   else
@@ -119,7 +118,15 @@ static bool IsVoltageBetter(float newVoltage, float oldVoltage)
 
 void Find_optimal_position()
 {
+  Critical_Sunlight = false;
+
   float bestVoltage = ReadPanelVoltageAverage();
+
+  if (bestVoltage < MIN_PANEL_START_VOLTAGE)
+  {
+    Critical_Sunlight = true;
+    return;
+  }
 
   // 1. Testujemy krok w stronę dodatnią
   Set_Motor1_Direction(FINE_STEP_ANGLE);

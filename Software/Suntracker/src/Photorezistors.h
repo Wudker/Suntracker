@@ -12,6 +12,7 @@
 #define ADC_SAMPLES 8
 #define VECTOR_DEADZONE 40
 #define MIN_LIGHT_LEVEL 100
+#define MIN_PANEL_START_VOLTAGE 10.0f
 
 extern volatile bool Critical_Sunlight;
 
