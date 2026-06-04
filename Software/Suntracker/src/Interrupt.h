@@ -34,6 +34,13 @@ extern "C" {
 
     extern volatile bool powerButtonFlag;
     extern volatile bool wakeTickFlag;
+    extern volatile bool Button_wakeup_flag;
+    void Interrupts_init();
+
+#ifdef __cplusplus
+    class STM32RTC;
+    extern STM32RTC &rtc;
+#endif
 
 #ifdef __cplusplus
 }
