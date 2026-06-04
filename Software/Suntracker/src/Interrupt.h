@@ -34,7 +34,6 @@ extern "C" {
 
     extern volatile bool powerButtonFlag;
     extern volatile bool wakeTickFlag;
-    extern volatile bool Button_wakeup_flag;
 
 #ifdef __cplusplus
 }

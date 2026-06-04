@@ -9,5 +9,5 @@
 #define MPPT_UPDATE_TIME 1000UL
 #define MPPT_MIN_PANEL_VOLTAGE 10.0f
 
-void MPPT_Init();
+bool MPPT_Init();
 void MPPT_menager();

@@ -4,6 +4,8 @@
 #include "Pins.h"
 #include "INA219.h"
 #include "MCP40xx.h"
+#include "Interrupt.h"
+#include "Photorezistors.h"
 
 INA219 ina219(0x40);
 MCP40xx mcp40xx(POT_cs, POT_data);
@@ -21,8 +23,13 @@ static void MPPT_SetResistance(float resistance)
   mcp40xx.setValue(mpptResistance);
 }
 
-void MPPT_Init()
+bool MPPT_Init()
 {
+  if (Critical_Sunlight)
+  {
+    return false;
+  }
+
   ina219.begin();
   ina219.setBusVoltageRange(32);
   ina219.setGain(1);
@@ -36,6 +43,8 @@ void MPPT_Init()
 
   previousPower = ina219.getPower();
   firstRun = false;
+
+  return true;
 }
 
 void MPPT_menager()

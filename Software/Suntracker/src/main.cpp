@@ -74,9 +74,10 @@ void loop()
     }
   }
 
-  if (Critical_Sunlight && Power == ON)
+  if (!MPPT_Init())
   {
     Initial_State = FOLD;
+    return;
   }
 
   switch (Initial_State)

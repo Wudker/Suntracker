@@ -48,8 +48,12 @@ void System_Start()
   Set_Motor1_Direction(optimal_position);
   delay(100);
   Find_optimal_position();
-  delay(100);
-  MPPT_Init();
+
+  if (!MPPT_Init())
+  {
+    Initial_State = FOLD;
+    return;
+  }
 }
 
 void Harvest_Update()
@@ -67,8 +71,12 @@ void Harvest_Update()
   Set_Motor1_Direction(optimal_position);
   delay(100);
   Find_optimal_position();
-  delay(100);
-  MPPT_Init();
+
+  if (!MPPT_Init())
+  {
+    Initial_State = FOLD;
+    return;
+  }
 }
 
 void System_Sleep()
