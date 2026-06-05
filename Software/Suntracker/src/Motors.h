@@ -2,8 +2,8 @@
 #define SERVO_MIN_ANGLE 0
 #define SERVO_MAX_ANGLE 180
 #define MOTOR1_przekladnia ((1.0f / 6.0f) ) //przedładnia zewnetrzna 
-#define MOTOR1_speed  120 //RPM
-#define MOTOR2_speed  120 //RPM
+#define MOTOR1_speed  100 //RPM
+#define MOTOR2_speed  400 //RPM
 #define Servo_przekladnia (17.0f / 30.0f)
 #define speed_start 120
 #define speed_const 240
