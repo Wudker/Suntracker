@@ -1,1 +1,1 @@
-Collision analysis for end positions and an animation showing the intended movement of the array of photovoltaic panels
+Simulation of the behaviour of one of the H-bridge channels (DRV8833). The configuration and selected values are rounded-off versions of typical values found online or in the detailed documentation (available in the datasheets folder).
