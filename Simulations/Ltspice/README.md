@@ -1,0 +1,1 @@
+Collision analysis for end positions and an animation showing the intended movement of the array of photovoltaic panels
