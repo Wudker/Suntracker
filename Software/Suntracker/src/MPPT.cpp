@@ -1,5 +1,3 @@
-// Maximum Power Point Tracking (MPPT) algorithm
-// Adjusts load resistance to maximize power extraction from solar panel
 #include <Arduino.h>
 #include <Wire.h>
 #include "MPPT.h"
@@ -11,11 +9,10 @@
 
 // Power monitor (INA219 on I2C address 0x40)
 INA219 ina219(0x40);
-// Digital potentiometer for adjusting load resistance
+// Digital potentiometer for adjusting MPPT
 MCP40xx mcp40xx(POT_cs, POT_data);
 
-// MPPT state variables
-static float mpptResistance = MPPT_START_RESISTANCE;  // Current load resistance
+static float mpptResistance = MPPT_START_RESISTANCE;  // Current MPPT position
 static float previousPower = 0.0f;                     // Power from previous measurement
 static int mpptDirection = -1;                         // Direction to adjust resistance (-1 or +1)
 static unsigned long lastMPPTUpdate = 0;               // Time of last MPPT adjustment
@@ -62,7 +59,7 @@ bool MPPT_Init()
 }
 
 // Main MPPT algorithm
-// Adjusts load resistance to find maximum power point
+// Adjust resistance to find maximum power point
 // Uses "Perturb and Observe" algorithm
 void MPPT_menager()
 {

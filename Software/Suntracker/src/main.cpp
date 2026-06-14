@@ -1,5 +1,3 @@
-// Solar panel tracker firmware for STM32
-// Includes all necessary libraries for motor control, power monitoring, and interrupts
 #include <Arduino.h>
 #include <Wire.h>
 #include "Pins.h"

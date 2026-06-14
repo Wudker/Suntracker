@@ -1,7 +1,3 @@
-// Sun tracking algorithm using 4 light sensors
-// Provides coarse position from 4-quadrant photorezistor array
-// Provides fine-tuning by measuring panel voltage
-
 #include "INA219.h"
 #include "MPPT.h"
 #include "Photorezistors.h"
@@ -37,9 +33,7 @@ static int16_t normalizeAngle180(int16_t angle)
   return angle;
 }
 
-// Fast approximation of atan2 in degrees
 // Used to calculate sun direction from sensor values
-// Avoids slow trigonometry functions
 static int16_t fastAtan2Deg(int32_t y, int32_t x)
 {
   // No signal case
@@ -84,10 +78,10 @@ static int16_t fastAtan2Deg(int32_t y, int32_t x)
 int16_t Find_general_optimal_position()
 {
   // Read all 4 photorezistors and average each
-  int r1 = readPhotorezistorAverage(Photorezistor_1);  // Top-left
-  int r2 = readPhotorezistorAverage(Photorezistor_2);  // Top-right
-  int r3 = readPhotorezistorAverage(Photorezistor_3);  // Bottom-left
-  int r4 = readPhotorezistorAverage(Photorezistor_4);  // Bottom-right
+  int r1 = readPhotorezistorAverage(Photorezistor_1);  
+  int r2 = readPhotorezistorAverage(Photorezistor_2);  
+  int r3 = readPhotorezistorAverage(Photorezistor_3);  
+  int r4 = readPhotorezistorAverage(Photorezistor_4);  
 
   // Find min and max sensor values
   int maxValue = max(max(r1, r2), max(r3, r4));
@@ -110,8 +104,8 @@ int16_t Find_general_optimal_position()
   }
 
   // Calculate X and Y components of light vector
-  int32_t x = r1 - r3;  // Left-Right difference (top + bottom)
-  int32_t y = r2 - r4;  // Up-Down difference (right + left)
+  int32_t x = r1 - r3;  
+  int32_t y = r2 - r4;  
 
   // Check if vector magnitude is significant
   if ((abs(x) + abs(y)) < VECTOR_DEADZONE)

@@ -1,4 +1,3 @@
-// Interrupt handlers for power management and RTC timing
 #include "Interrupt.h"
 #include "arduino.h"
 #include "Pins.h"
@@ -7,7 +6,6 @@
 #include "STM32LowPower.h"
 #include "STM32RTC.h"
 
-// ===== GLOBAL STATE VARIABLES =====
 volatile uint16_t Timer_counter = 0;        // Count wake-up cycles (0-15 before update)
 volatile state Initial_State = Sleep;       // Start in sleep state
 volatile Power_state Power = OFF;           // Start powered off
@@ -18,7 +16,6 @@ volatile bool Button_wakeup_flag = false;   // Button wake-up status
 HardwareTimer timer1(TIM2);                // Hardware timer for timing operations
 STM32RTC &rtc = STM32RTC::getInstance();   // Real-time clock singleton
 
-// ===== INTERRUPT SERVICE ROUTINES =====
 
 // Called immediately when power button is pressed (in interrupt context)
 // Sets flag for main loop to handle
@@ -27,7 +24,6 @@ void PowerButton_ISR()
     powerButtonFlag = true;  // Signal main loop to handle button press
 }
 
-// Called by RTC every 60 seconds
 // Wakes system from sleep to perform periodic tasks
 void Harvest_Update_interrupt()
 {
@@ -52,7 +48,6 @@ void Handle_Power_Button()
         Initial_State = FOLD;  // Fold panel before powering down
     }
 }
-// Initialize interrupt system and RTC timer
 // Sets up power button interrupt and periodic wake-up timer
 void Interrupts_init()
 {

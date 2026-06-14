@@ -1,4 +1,3 @@
-// Motor control functions for panel positioning
 #include "Motors.h"
 #include <Arduino.h>
 #include <Servo.h>
@@ -44,7 +43,7 @@ void Motor1_Stop()
 }
 
 // Rotate motor to specific angle
-// Uses 3-phase speed profile: start, constant, stop (for smooth acceleration/deceleration)
+// Uses 3-phase speed profile: start, constant, stop (for "smooth" acceleration/deceleration)
 void Set_Motor1_Direction(float angle)
 {
   // No movement needed

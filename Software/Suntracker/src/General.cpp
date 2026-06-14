@@ -1,4 +1,3 @@
-// Power management and system control functions
 #include "General.h"
 #include <Arduino.h>
 #include "Wire.h"
@@ -55,7 +54,7 @@ void System_Start()
   delay(300);
   
   // Move to initial positions
-  Set_Motor2_Direction(40);     // Move horizontal motor
+  Set_Motor2_Direction(40);     ///Move screw actuator
   delay(100);
   Set_Servo_angle(120);         // Tilt panel at 120 degrees
   delay(500);
@@ -108,7 +107,6 @@ void Harvest_Update()
 // Turn off motors and logic power to save energy
 void System_Sleep()
 {
-  // Keep panel enabled for trickle charging
   Set_Panel_Power(true);
 
   // Disable motors and logic to save power
