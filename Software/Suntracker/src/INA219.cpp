@@ -1,3 +1,6 @@
+// Power monitoring library for INA219 voltage/current sensor
+// Reads solar panel voltage, current, and power output
+
 //    FILE: INA219.h
 //  AUTHOR: Rob Tillaart
 // VERSION: 0.4.2
@@ -8,61 +11,59 @@
 
 #include "INA219.h"
 
+// ===== REGISTER ADDRESSES =====
+#define INA219_CONFIGURATION            0x00  // Configuration register
+#define INA219_SHUNT_VOLTAGE            0x01  // Shunt voltage (across resistor)
+#define INA219_BUS_VOLTAGE              0x02  // Bus voltage (panel voltage)
+#define INA219_POWER                    0x03  // Power reading
+#define INA219_CURRENT                  0x04  // Current reading
+#define INA219_CALIBRATION              0x05  // Calibration register
+#define INA219_MASK_ENABLE              0x06  // Mask/enable register
+#define INA219_ALERT_LIMIT              0x07  // Alert limit register
+#define INA219_MANUFACTURER             0xFE  // Manufacturer ID
+#define INA219_DIE_ID                   0xFF  // Device ID
 
-//  REGISTER ADDRESSES
-#define INA219_CONFIGURATION            0x00
-#define INA219_SHUNT_VOLTAGE            0x01
-#define INA219_BUS_VOLTAGE              0x02
-#define INA219_POWER                    0x03
-#define INA219_CURRENT                  0x04
-#define INA219_CALIBRATION              0x05
-#define INA219_MASK_ENABLE              0x06
-#define INA219_ALERT_LIMIT              0x07
-#define INA219_MANUFACTURER             0xFE
-#define INA219_DIE_ID                   0xFF
-
-
-//  CONFIGURATION REGISTER MASKS
-#define INA219_CONF_RESET               0x8000
-#define INA219_CONF_BUS_RANGE_VOLTAGE   0x2000
-#define INA219_CONF_PROG_GAIN           0x1800
-#define INA219_CONF_BUS_ADC             0x0780
-#define INA219_CONF_SHUNT_ADC           0x0078
-#define INA219_CONF_MODE                0x0007
+// ===== CONFIGURATION REGISTER MASKS =====
+#define INA219_CONF_RESET               0x8000  // Reset chip
+#define INA219_CONF_BUS_RANGE_VOLTAGE   0x2000  // Bus voltage range
+#define INA219_CONF_PROG_GAIN           0x1800  // Programmable gain
+#define INA219_CONF_BUS_ADC             0x0780  // Bus ADC resolution
+#define INA219_CONF_SHUNT_ADC           0x0078  // Shunt ADC resolution
+#define INA219_CONF_MODE                0x0007  // Operating mode
 
 
 
 ////////////////////////////////////////////////////////
-//
-//  CONSTRUCTOR
+// CONSTRUCTOR - Initialize power monitor on I2C bus
 //
 INA219::INA219(const uint8_t address, TwoWire *wire)
 {
-  _address     = address;
-  _wire        = wire;
-  //  no calibrated values by default.
-  _current_LSB = 0;
+  _address     = address;    // I2C slave address (0x40-0x4F)
+  _wire        = wire;        // I2C bus pointer
+  _current_LSB = 0;           // Calibration value (initially not set)
   _maxCurrent  = 0;
   _shunt       = 0;
   _error       = 0;
 }
 
-
+// Initialize communication with INA219 sensor
 bool INA219::begin()
 {
-  if (! isConnected()) return false;
+  if (! isConnected()) return false;  // Check if device is on I2C bus
   return true;
 }
 
-
+// Check if INA219 is connected and responding
 bool INA219::isConnected()
 {
+  // Verify I2C address is in valid range
   if ((_address < 0x40) || (_address > 0x4F)) return false;
+  
   _wire->beginTransmission(_address);
-  return ( _wire->endTransmission() == 0);
+  return ( _wire->endTransmission() == 0);  // Return true if ACK received
 }
 
-
+// Get I2C address of this device
 uint8_t INA219::getAddress()
 {
   return _address;
@@ -70,32 +71,38 @@ uint8_t INA219::getAddress()
 
 
 ////////////////////////////////////////////////////////
+// CORE POWER MEASUREMENT FUNCTIONS
 //
-//  CORE FUNCTIONS
-//
+
+// Read shunt voltage (voltage across current sense resistor)
+// Resolution: 10 microvolts per LSB
 float INA219::getShuntVoltage()
 {
   int16_t value = _readRegister(INA219_SHUNT_VOLTAGE);
-  return value * 1e-5;  //  fixed 10 uV
+  return value * 1e-5;  // Convert to volts (fixed 10 µV per LSB)
 }
 
-
+// Read bus voltage (solar panel voltage)
+// Resolution: 4 millivolts per LSB
 float INA219::getBusVoltage()
 {
   uint16_t value = _readRegister(INA219_BUS_VOLTAGE);
-  uint8_t flags = value & 0x03;
-  //  math overflow handling
-  if (flags & 0x01) return -100;
-  //  if flags && 0x02 ==> convert flag;  not handled
-  float voltage = (value >> 3) * 4e-3;  //  fixed 4 mV
+  uint8_t flags = value & 0x03;  // Extract status bits
+  
+  // Math overflow handling
+  if (flags & 0x01) return -100;  // Return error if overflow occurred
+  
+  // Extract voltage bits and convert to volts
+  float voltage = (value >> 3) * 4e-3;  // 4 mV per LSB
   return voltage;
 }
 
-
+// Read power output (voltage × current)
+// Resolution: current_LSB × 20 Watts
 float INA219::getPower()
 {
   uint16_t value = _readRegister(INA219_POWER);
-  return value * (_current_LSB * 20);  //  fixed 20 Watt
+  return value * (_current_LSB * 20);  // 20x current LSB per power LSB
 }
 
 //  TODO CHECK

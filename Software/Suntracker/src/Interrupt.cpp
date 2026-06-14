@@ -1,3 +1,4 @@
+// Interrupt handlers for power management and RTC timing
 #include "Interrupt.h"
 #include "arduino.h"
 #include "Pins.h"
@@ -6,48 +7,66 @@
 #include "STM32LowPower.h"
 #include "STM32RTC.h"
 
-volatile uint16_t Timer_counter = 0;
-volatile state Initial_State = Sleep;
-volatile Power_state Power = OFF;
-volatile bool powerButtonFlag = false;
-volatile bool wakeTickFlag = false;
-volatile bool Button_wakeup_flag = false;
-HardwareTimer timer1(TIM2);
-STM32RTC &rtc = STM32RTC::getInstance();
+// ===== GLOBAL STATE VARIABLES =====
+volatile uint16_t Timer_counter = 0;        // Count wake-up cycles (0-15 before update)
+volatile state Initial_State = Sleep;       // Start in sleep state
+volatile Power_state Power = OFF;           // Start powered off
+volatile bool powerButtonFlag = false;      // Power button event flag
+volatile bool wakeTickFlag = false;         // RTC timer wake-up flag
+volatile bool Button_wakeup_flag = false;   // Button wake-up status
 
+HardwareTimer timer1(TIM2);                // Hardware timer for timing operations
+STM32RTC &rtc = STM32RTC::getInstance();   // Real-time clock singleton
+
+// ===== INTERRUPT SERVICE ROUTINES =====
+
+// Called immediately when power button is pressed (in interrupt context)
+// Sets flag for main loop to handle
 void PowerButton_ISR()
 {
-    powerButtonFlag = true;
+    powerButtonFlag = true;  // Signal main loop to handle button press
 }
 
+// Called by RTC every 60 seconds
+// Wakes system from sleep to perform periodic tasks
 void Harvest_Update_interrupt()
 {
-    wakeTickFlag = true;
+    wakeTickFlag = true;  // Signal main loop that wake time occurred
 }
 
-
+// Process power button event (called from main loop)
+// Toggles power state and sets appropriate system state
 void Handle_Power_Button()
 {
     if (Power == OFF)
     {
-        Power = ON;
-        Initial_State = START;
-        Timer_counter = 0;
+        // Turn system ON
+        Power = ON;           // Set power state
+        Initial_State = START;  // Start initialization sequence
+        Timer_counter = 0;    // Reset wake-up counter
     }
     else
     {
-        Power = OFF;
-        Initial_State = FOLD;
+        // Turn system OFF
+        Power = OFF;          // Clear power state
+        Initial_State = FOLD;  // Fold panel before powering down
     }
 }
+// Initialize interrupt system and RTC timer
+// Sets up power button interrupt and periodic wake-up timer
 void Interrupts_init()
 {
+    // Configure RTC to use internal low-speed clock
     rtc.setClockSource(STM32RTC::LSI_CLOCK);
+    
+    // Initialize low power manager
     LowPower.begin();
 
+    // Attach power button interrupt
+    // Wakes from deep sleep when button is pressed (falling edge)
     LowPower.attachInterruptWakeup(
-        POWER_ON,
-        PowerButton_ISR,
-        FALLING,
-        DEEP_SLEEP_MODE);
+        POWER_ON,              // Pin connected to power button
+        PowerButton_ISR,       // Interrupt handler function
+        FALLING,               // Trigger on button press (active low)
+        DEEP_SLEEP_MODE);      // Wake from deep sleep mode
 }

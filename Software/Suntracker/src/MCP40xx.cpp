@@ -13,35 +13,41 @@
 
 #include "MCP40xx.h"
 
-// Constructor
+// ===== CONSTRUCTORS =====
 
+// Create MCP40xx instance with chip select and up/down pins
 MCP40xx::MCP40xx(uint8_t CS, uint8_t UD) {
 
-    _CSPin = CS;
-    _UDPin = UD;
-    _debug = false;
+    _CSPin = CS;      // Store chip select pin
+    _UDPin = UD;      // Store up/down control pin
+    _debug = false;   // Disable debug output
 }
 
+// Create MCP40xx instance with debug output enabled/disabled
 MCP40xx::MCP40xx(uint8_t CS, uint8_t UD, bool DEBUG) {
 
-    _CSPin = CS;
-    _UDPin = UD;
-    _debug = DEBUG;
+    _CSPin = CS;     // Store chip select pin
+    _UDPin = UD;     // Store up/down control pin
+    _debug = DEBUG;  // Enable/disable debug messages
 }
 
-// Methods
+// ===== INITIALIZATION =====
 
+// Configure GPIO pins for digital potentiometer control
 void MCP40xx::setup() {
 
-    pinMode(_UDPin, OUTPUT);
-    pinMode(_CSPin, OUTPUT);
+    // Set up control pins as outputs
+    pinMode(_UDPin, OUTPUT);   // Up/Down control pin
+    pinMode(_CSPin, OUTPUT);   // Chip select pin
 
-    digitalWrite(_CSPin, HIGH);  // _CSPin is active low, keep it HIGH at the beginning
-    digitalWrite(_UDPin, HIGH);  // _UDPin -> U is active HIGH, keep it LOW at the beginning
+    // Set initial pin states (idle/inactive)
+    digitalWrite(_CSPin, HIGH);  // CS is active LOW, so keep HIGH at idle
+    digitalWrite(_UDPin, HIGH);  // UD idle state
 }
 
+// Initialize potentiometer with default 100 kOhm
 void MCP40xx::begin() {
-    _tapPointer = MCP40xx_DEFAULT_TAP_COUNT;
+    _tapPointer = MCP40xx_DEFAULT_TAP_COUNT;  // Start at middle tap (31 of 63)
     _nominalResistance = MCP40xx_NOMINAL_RESISTANCE;
 
     if(_debug){
@@ -49,96 +55,98 @@ void MCP40xx::begin() {
     }
 }
 
+// Initialize potentiometer with custom maximum resistance value
 void MCP40xx::begin(float nomRes) {
-    _tapPointer = MCP40xx_DEFAULT_TAP_COUNT;
-    _nominalResistance = nomRes;
+    _tapPointer = MCP40xx_DEFAULT_TAP_COUNT;  // Start at middle tap
+    _nominalResistance = nomRes;              // Use custom resistance value
 
     if(_debug){
       Serial.println(F("Initializing MCP40xx..."));
     }
 }
 
+// Get current wiper position as fractional value (0.0 to 1.0)
 float MCP40xx::wiper() {
     return (_tapPointer / MCP40xx_TAP_NUMBER);
 }
 
-void MCP40xx::inc() {  // return wiper count!
+// Increment wiper position by one tap (increase resistance)
+void MCP40xx::inc() {
 
     if ((_tapPointer < MCP40xx_TAP_NUMBER)) {
-        // Note: The digitalWrite command is slow enough for the device. No additional delays are needed
+        // Note: digitalWrite is slow enough for the MCP40xx timing
 
-        unsigned long _startIncTime = micros();
-        digitalWrite(_UDPin, HIGH);  // We want the wiper to go UP
+        unsigned long _startIncTime = micros();  // Measure execution time
+        digitalWrite(_UDPin, HIGH);   // Set UP direction
 
-        //After at least 500 ns bring _CSPin low
-        digitalWrite(_CSPin, LOW);  // Start the command
+        // Pulse chip select to trigger command
+        digitalWrite(_CSPin, LOW);    // Start command
 
-        // /*  Increment command*/
-        //*Subsequent rising edges of _UDPin move the wiper */
-        // One tap
-        digitalWrite(_UDPin, LOW);
+        // One increment pulse
+        digitalWrite(_UDPin, LOW);    // Pulse UP line
+        digitalWrite(_UDPin, HIGH);   // Return to HIGH
 
-        digitalWrite(_UDPin, HIGH);  // Last _UDPin state is HIGH
-        // Here the wiper should have increased already
+        // End command
+        digitalWrite(_CSPin, HIGH);   // Release CS
 
-        // Leave the _CSPin pin ready for next instruction
-        digitalWrite(_CSPin, HIGH);  // Release _CSPin to avoid changing the Pot
+        _tapPointer++;  // Increment tap counter
 
-        _tapPointer++;
-
+        // Clamp to maximum
         if (_tapPointer >= MCP40xx_TAP_NUMBER)
             _tapPointer = MCP40xx_TAP_NUMBER;
 
-        _incDelay = micros() - _startIncTime;
+        _incDelay = micros() - _startIncTime;  // Record execution time
     }
 }
 
+// Decrement wiper position by one tap (decrease resistance)
 void MCP40xx::dec() {
 
     if ((_tapPointer > 0)) {
 
-        unsigned long _startDecTime = micros();
+        unsigned long _startDecTime = micros();  // Measure execution time
 
-        digitalWrite(_UDPin, LOW);  // We want the wiper to go DOWN
+        digitalWrite(_UDPin, LOW);    // Set DOWN direction
 
-        //After at least 500 ns bring _CSPin low
-        digitalWrite(_CSPin, LOW);  // Start the "move wiper" command
+        // Pulse chip select to trigger command
+        digitalWrite(_CSPin, LOW);    // Start command
 
-        // /*  Decrement command*/
-        // One tap
-        digitalWrite(_UDPin, HIGH);
+        // One decrement pulse
+        digitalWrite(_UDPin, HIGH);   // Pulse UP line
+        digitalWrite(_UDPin, LOW);    // Return to LOW
 
-        digitalWrite(_UDPin, LOW);
-        // Here the wiper should have decreased already
-        //*Subsequent falling edges of _UDPin move the wiper */
+        // End command
+        digitalWrite(_CSPin, HIGH);   // Release CS
 
-        // Leave the _CSPin pin ready for next instruction
-        digitalWrite(_CSPin, HIGH);
+        _tapPointer--;  // Decrement tap counter
 
-        _tapPointer--;
-
+        // Clamp to minimum
         if (_tapPointer <= 0)
             _tapPointer = 0;
 
-        _decDelay = micros() - _startDecTime;
+        _decDelay = micros() - _startDecTime;  // Record execution time
 
     }
 }
 
+// Get execution time for last increment (microseconds)
 unsigned long MCP40xx::incMicros() {
     return _incDelay;
 }
 
+// Get execution time for last decrement (microseconds)
 unsigned long MCP40xx::decMicros() {
     return _decDelay;
 }
 
+// Get execution time for last setValue (microseconds)
 unsigned long MCP40xx::setMicros() {
     return _setDelay;
 }
 
+// Get current tap number (0-63)
 int MCP40xx::taps() {
-    return _tapPointer;  // value within [1-64] that points to the taps between resistors [0,63]
+    return _tapPointer;  // Current position in the resistor ladder
 }
 
 uint8_t MCP40xx::setValue(float desiredR) {

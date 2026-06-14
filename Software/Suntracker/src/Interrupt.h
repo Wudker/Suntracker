@@ -4,38 +4,48 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    const uint32_t Harvest_time = 60000000UL; // 1 min
-    extern volatile uint16_t Timer_counter;
+
+// ===== TIMING CONSTANTS =====
+const uint32_t Harvest_time = 60000000UL;  // Harvest duration before sleep: 1 minute
+
+// ===== GLOBAL STATE VARIABLES =====
+extern volatile uint16_t Timer_counter;    // Counter for wake-up cycles (0-15)
+
+// ===== SYSTEM STATES =====
+// Enumeration of all possible system states
+typedef enum
+{
+    START = 0,          // Initialize: power on, find optimal position, start MPPT
+    Harvest_update = 1, // Periodic update: re-find optimal position every ~15 minutes
+    Harvest = 2,        // Normal operation: track sun, optimize power with MPPT
+    FOLD = 3,           // Safety mode: fold panel to protected position
+    Sleep = 4           // Low power mode: sleep for 60 seconds, wake periodically
+} state;
+
+// ===== POWER STATES =====
+typedef enum
+{
+    OFF = 0,  // System powered off
+    ON = 1    // System powered on
+} Power_state;
 
 
-    typedef enum
-    {
-        START = 0,          // wake up, initialize, and start the system
-        Harvest_update = 1, // find the optimal position and update the panel's position
-        Harvest = 2,        // keep the panel in the optimal position, and update MPPT values
-        FOLD = 3,           // fold the panel
-        Sleep = 4           // enter sleep mode
-    } state;
 
-    typedef enum
-    {
-        OFF = 0,
-        ON = 1
-    } Power_state;
+// ===== INTERRUPT SERVICE ROUTINES =====
+void PowerButton_ISR();                 // Called when power button is pressed
+void Harvest_Update_interrupt();        // Called by RTC timer every 60 seconds
+void Handle_Power_Button();             // Processes power button event
 
+// ===== GLOBAL STATE VARIABLES =====
+extern volatile state Initial_State;    // Current system state
+extern volatile Power_state Power;      // Power ON/OFF state
 
+extern volatile bool powerButtonFlag;   // Set to true when power button pressed
+extern volatile bool wakeTickFlag;      // Set to true on RTC timer tick (every 60 sec)
+extern volatile bool Button_wakeup_flag;// Flag for button wake-up
 
-    void PowerButton_ISR();
-    void Harvest_Update_interrupt();
-    void Handle_Power_Button();
-
-    extern volatile state Initial_State;
-    extern volatile Power_state Power;
-
-    extern volatile bool powerButtonFlag;
-    extern volatile bool wakeTickFlag;
-    extern volatile bool Button_wakeup_flag;
-    void Interrupts_init();
+// ===== INITIALIZATION =====
+void Interrupts_init();                 // Initialize interrupt handlers and RTC timer
 
 #ifdef __cplusplus
     class STM32RTC;
