@@ -1,1 +1,1 @@
-Collision analysis for end positions and an animation showing the intended movement of the array of photovoltaic panels
+A collision analysis for the final positions and an animation showing the intended movement of the photovoltaic panel array. The purpose of the animation is to illustrate the general concept of the movement, any visible collisions between the panels are rendering errors, everything will function correctly in the physical model.
