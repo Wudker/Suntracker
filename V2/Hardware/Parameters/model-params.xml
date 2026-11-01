@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParamWithValueList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <version>20080502</version>
+  <parameterTypes>
+    <ParamType>
+      <typeName>Inventor</typeName>
+      <typeCode>0</typeCode>
+    </ParamType>
+    <ParamType>
+      <typeName>String</typeName>
+      <typeCode>1</typeCode>
+    </ParamType>
+    <ParamType>
+      <typeName>Boolean</typeName>
+      <typeCode>2</typeCode>
+    </ParamType>
+  </parameterTypes>
+  <parameters>
+    <ParamWithValue>
+      <name>Base_radius</name>
+      <typeCode>mm</typeCode>
+      <value>120 mm</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>Bearing_ball_radius</name>
+      <typeCode>mm</typeCode>
+      <value>2 mm</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d0</name>
+      <typeCode>mm</typeCode>
+      <value>Base_radius</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d1</name>
+      <typeCode>deg</typeCode>
+      <value>180.00 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>Base_height</name>
+      <typeCode>mm</typeCode>
+      <value>40 mm</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d2</name>
+      <typeCode>mm</typeCode>
+      <value>Base_height</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d3</name>
+      <typeCode>deg</typeCode>
+      <value>90.00 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>Base_wall_thickness</name>
+      <typeCode>mm</typeCode>
+      <value>3 mm</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>Base_floor_thickness</name>
+      <typeCode>mm</typeCode>
+      <value>2 mm</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d4</name>
+      <typeCode>mm</typeCode>
+      <value>Base_wall_thickness</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d5</name>
+      <typeCode>mm</typeCode>
+      <value>Base_height</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d11</name>
+      <typeCode>mm</typeCode>
+      <value>Base_radius</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d12</name>
+      <typeCode>mm</typeCode>
+      <value>Base_floor_thickness</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d14</name>
+      <typeCode>mm</typeCode>
+      <value>Base_radius - ( Base_wall_thickness / 2 ul )</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d15</name>
+      <typeCode>mm</typeCode>
+      <value>Base_height + ( Bearing_ball_radius + 0.2 mm ) / 5 ul</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d16</name>
+      <typeCode>deg</typeCode>
+      <value>90.00 deg</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d17</name>
+      <typeCode>mm</typeCode>
+      <value>Bearing_ball_radius + 0.2 mm</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>Bearing_balls_count</name>
+      <typeCode>ul</typeCode>
+      <value>50 ul</value>
+      <comment />
+      <isKey>false</isKey>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d19</name>
+      <typeCode>ul</typeCode>
+      <value>Bearing_balls_count</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d20</name>
+      <typeCode>deg</typeCode>
+      <value>360 deg</value>
+      <comment />
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+  </parameters>
+</ParamWithValueList>
