@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ParamWithValueList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<ParamWithValueList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
   <version>20080502</version>
+
   <parameterTypes>
     <ParamType>
       <typeName>Inventor</typeName>
@@ -15,26 +17,27 @@
       <typeCode>2</typeCode>
     </ParamType>
   </parameterTypes>
+
   <parameters>
     <ParamWithValue>
       <name>Base_radius</name>
       <typeCode>mm</typeCode>
-      <value>80 mm</value>
-      <comment />
+      <value>110 mm</value>
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>Bearing_ball_radius</name>
       <typeCode>mm</typeCode>
       <value>2 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d0</name>
       <typeCode>mm</typeCode>
       <value>Base_radius</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -42,21 +45,21 @@
       <name>d1</name>
       <typeCode>deg</typeCode>
       <value>180.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>Base_height</name>
       <typeCode>mm</typeCode>
-      <value>30 mm</value>
-      <comment />
+      <value>45 mm</value>
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d2</name>
       <typeCode>mm</typeCode>
       <value>Base_height</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -64,28 +67,28 @@
       <name>d3</name>
       <typeCode>deg</typeCode>
       <value>90.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>Base_wall_thickness</name>
       <typeCode>mm</typeCode>
       <value>3 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>Base_floor_thickness</name>
       <typeCode>mm</typeCode>
       <value>2 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d4</name>
       <typeCode>mm</typeCode>
       <value>Base_wall_thickness</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -93,7 +96,7 @@
       <name>d5</name>
       <typeCode>mm</typeCode>
       <value>Base_height</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -101,7 +104,7 @@
       <name>d11</name>
       <typeCode>mm</typeCode>
       <value>Base_radius</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -109,7 +112,7 @@
       <name>d12</name>
       <typeCode>mm</typeCode>
       <value>Base_floor_thickness</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -117,7 +120,7 @@
       <name>d14</name>
       <typeCode>mm</typeCode>
       <value>Base_radius - ( Base_wall_thickness / 2 ul )</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -125,7 +128,7 @@
       <name>d15</name>
       <typeCode>mm</typeCode>
       <value>Base_height + ( Bearing_ball_radius + 0.2 mm ) / 5 ul</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -133,29 +136,29 @@
       <name>d16</name>
       <typeCode>deg</typeCode>
       <value>90.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d17</name>
       <typeCode>mm</typeCode>
       <value>Bearing_ball_radius + 0.2 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
     <ParamWithValue>
       <name>Bearing_balls_count</name>
       <typeCode>ul</typeCode>
-      <value>75 ul</value>
-      <comment />
+      <value>60 ul</value>
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d19</name>
       <typeCode>ul</typeCode>
       <value>Bearing_balls_count</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -163,7 +166,7 @@
       <name>d20</name>
       <typeCode>deg</typeCode>
       <value>360 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -171,21 +174,21 @@
       <name>Cascet_mounting_holes_count</name>
       <typeCode>ul</typeCode>
       <value>4 ul</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>Cascet_mounting_holes_size</name>
       <typeCode>mm</typeCode>
-      <value>1.5 mm</value>
-      <comment />
+      <value>3 mm</value>
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d22</name>
       <typeCode>mm</typeCode>
       <value>Cascet_mounting_holes_offset</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -193,14 +196,14 @@
       <name>d23</name>
       <typeCode>deg</typeCode>
       <value>180.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d24</name>
       <typeCode>mm</typeCode>
       <value>Cascet_mounting_holes_size</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -208,7 +211,7 @@
       <name>d25</name>
       <typeCode>mm</typeCode>
       <value>141.500 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -216,7 +219,7 @@
       <name>d26</name>
       <typeCode>deg</typeCode>
       <value>0.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -224,7 +227,7 @@
       <name>d27</name>
       <typeCode>ul</typeCode>
       <value>Cascet_mounting_holes_count</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -232,22 +235,22 @@
       <name>d28</name>
       <typeCode>deg</typeCode>
       <value>360 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
     <ParamWithValue>
       <name>Cascet_mounting_holes_offset</name>
       <typeCode>mm</typeCode>
-      <value>3 mm</value>
-      <comment />
+      <value>5 mm</value>
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d30</name>
       <typeCode>mm</typeCode>
       <value>Base_radius - ( Base_wall_thickness / 2 ul ) - 0.3 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -255,21 +258,21 @@
       <name>d31</name>
       <typeCode>deg</typeCode>
       <value>90.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>Photoresistors_height</name>
       <typeCode>mm</typeCode>
-      <value>Base_height - 10 mm</value>
-      <comment />
+      <value>Base_height - 15 mm</value>
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d35</name>
       <typeCode>mm</typeCode>
       <value>8 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -277,7 +280,7 @@
       <name>d36</name>
       <typeCode>deg</typeCode>
       <value>0.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -285,7 +288,7 @@
       <name>d55</name>
       <typeCode>mm</typeCode>
       <value>Photoresistors_height</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -293,14 +296,14 @@
       <name>d56</name>
       <typeCode>deg</typeCode>
       <value>0.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d57</name>
       <typeCode>deg</typeCode>
       <value>156 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -308,7 +311,7 @@
       <name>d58</name>
       <typeCode>mm</typeCode>
       <value>10 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -316,7 +319,7 @@
       <name>d59</name>
       <typeCode>mm</typeCode>
       <value>5.000 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -324,7 +327,7 @@
       <name>d60</name>
       <typeCode>deg</typeCode>
       <value>0.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -332,7 +335,7 @@
       <name>d61</name>
       <typeCode>deg</typeCode>
       <value>0.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -340,7 +343,7 @@
       <name>d63</name>
       <typeCode>mm</typeCode>
       <value>2.000 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -348,7 +351,7 @@
       <name>d64</name>
       <typeCode>mm</typeCode>
       <value>-1.5 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -356,7 +359,7 @@
       <name>d65</name>
       <typeCode>mm</typeCode>
       <value>0.7 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -364,7 +367,7 @@
       <name>d66</name>
       <typeCode>mm</typeCode>
       <value>1 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -372,7 +375,7 @@
       <name>d67</name>
       <typeCode>deg</typeCode>
       <value>0.00 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -380,7 +383,7 @@
       <name>d68</name>
       <typeCode>mm</typeCode>
       <value>2 mm</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -388,14 +391,14 @@
       <name>Photoresistors_count</name>
       <typeCode>ul</typeCode>
       <value>4 ul</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
     </ParamWithValue>
     <ParamWithValue>
       <name>d69</name>
       <typeCode>ul</typeCode>
       <value>Photoresistors_count</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -403,7 +406,7 @@
       <name>d70</name>
       <typeCode>deg</typeCode>
       <value>360 deg</value>
-      <comment />
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
@@ -411,9 +414,74 @@
       <name>d72</name>
       <typeCode>mm</typeCode>
       <value>2 mm</value>
-      <comment />
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d86</name>
+      <typeCode>mm</typeCode>
+      <value>112.000 mm</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d87</name>
+      <typeCode>mm</typeCode>
+      <value>Cascet_mounting_holes_offset</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d88</name>
+      <typeCode>mm</typeCode>
+      <value>6.2 mm</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d89</name>
+      <typeCode>mm</typeCode>
+      <value>4 mm</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d90</name>
+      <typeCode>deg</typeCode>
+      <value>0.00 deg</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d91</name>
+      <typeCode>mm</typeCode>
+      <value>0.4 mm</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d92</name>
+      <typeCode>ul</typeCode>
+      <value>Cascet_mounting_holes_count</value>
+      <comment/>
+      <isKey>false</isKey>
+      <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
+    </ParamWithValue>
+    <ParamWithValue>
+      <name>d93</name>
+      <typeCode>deg</typeCode>
+      <value>360 deg</value>
+      <comment/>
       <isKey>false</isKey>
       <tolerance>Domyślna;Wartość nominalna;Dokładność dokumentu</tolerance>
     </ParamWithValue>
   </parameters>
+
 </ParamWithValueList>
